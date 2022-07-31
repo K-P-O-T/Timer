@@ -1,0 +1,352 @@
+@mixin font($font_name, $file_name, $weight, $style) {
+    @font-face {
+        font-family: $font_name;
+        font-display: swap;
+        src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
+        font-weight: #{$weight};
+        font-style: #{$style};
+    }
+}
+
+@import "fonts";
+
+/*Обнуление*/
+*{padding:0;margin:0;border:0;}
+*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
+:focus,:active{outline:none;}
+a:focus,a:active{outline:none;}
+nav,footer,header,aside{display:block;}
+html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms-text-size-adjust:100%;-moz-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+input,button,textarea{font-family:inherit;}
+input::-ms-clear{display:none;}
+button{cursor:pointer;}
+button::-moz-focus-inner{padding:0;border:0;}
+a,a:visited{text-decoration:none;}
+a:hover{text-decoration:none;}
+ul li{list-style:none;}
+img{vertical-align:top;}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}
+/*--------------------*/
+
+
+$color1: #ffffff;
+$color2: #959794;
+$color3: #45433E;
+$color4: #19171A;
+$color5: #E9322E;
+$color6: #59DB00;
+
+
+
+
+
+// Main style
+.wrapper {
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1440px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+body{
+    background-color: $color3;
+    color: #fff;
+    //font-size: 2em;
+    min-height: 100%;
+    //font-family: digital;
+}
+
+
+
+
+.timer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-body {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 1000px;
+    background-color: $color2;
+    border-radius: 40px;
+}
+
+.timer-timelist {
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 25px;
+    &-time {
+        flex: 3 1 auto;//3 1
+    }
+
+    &-list {
+
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        flex: 2 1 auto;//2 1
+
+        height: 615px;
+        width: 100px;
+
+        background-color: #747474;
+        box-shadow: 0px 0px 48px 27px rgba(170, 170, 170, 0.24) inset;
+        padding: 10px;
+        border-radius: 20px;
+
+        &__item{
+            background-color: #d8d8d8;
+            width: 100%;
+            height: 50px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            padding: 5px;
+            font-size: 24px;
+            
+            &:last-child{   
+                margin-bottom: 0px;
+            }
+        }
+    }
+}
+
+
+
+.clock {
+    position: relative;
+    background-color: #b6b6b6;
+    border-radius: 50%;
+
+    padding: 10px;
+
+    // width: 650px;
+    // height: 650px;
+}
+
+.clock-spinner {
+    width: 100%;
+    height: 100%;
+    //display: none;
+}
+
+.clock-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &__time {}
+}
+
+#timer{
+    font-size: 100px;
+}
+
+#mtimer {
+    font-size: 50px;
+}
+
+
+.timer-buttons {
+    background-color: #838383;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    padding: 10px;
+    border-radius: 15px;
+
+    &__reload {}
+
+    &__startstop {}
+
+    &__loop {}
+}
+
+.button{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    font-size: 1.5rem;
+    border: solid 2px #313131;
+}
+
+
+
+
+
+
+
+
+
+//==============
+
+
+
+//====== Анимация спинера ======//
+
+
+// .clock-spinner circle {
+//     stroke-width: 2;
+//     fill: none;
+//     stroke-dasharray: 616;//616
+//     animation: efecto 3s linear infinite;
+//     transform-origin: center center;
+// }
+
+.anim{
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 616; //616
+    animation: efecto 3s linear infinite;
+    transform-origin: center center;
+    animation-play-state: paused;
+}
+.StopAnim{
+    display: none;
+}
+
+@keyframes efecto {
+    from {
+        stroke-dashoffset: 616;
+        transform: rotateZ(-90deg);
+        stroke: $color5;
+    }
+
+    50% {
+        transform: rotateZ(-90deg);
+        stroke: $color6;
+        stroke-dashoffset: 0;
+
+    }
+
+    50.0001% {
+        transform: rotateZ(-90deg) rotateX(180deg);
+        stroke: $color6;
+    }
+
+    to {
+        transform: rotateZ(-90deg) rotateX(180deg);
+        stroke: $color5;
+        stroke-dashoffset: 616;
+    }
+}
+//====== Анимация спинера ======//
+
+
+
+
+
+
+
+
+
+.point {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    top: 110px;
+    left: 110px;
+    background: white;
+    border-radius: 50%;
+    transform-origin: 195px 195px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//========== Анимация волны на кнопках ==========//
+
+.btn-wave {
+    overflow: hidden;
+    position: relative;
+}
+
+.pulse {
+    border-radius: 50%;
+    background-color: #bfc9e7;
+    animation: pulse 0.7s ease-out;
+    transform: scale(0);
+    position: absolute;
+}
+
+@keyframes pulse {
+    to {
+        transform: scale(2);
+        background-color: #fff;
+        opacity: 0;
+    }
+}
+
+//========== /Анимация волны на кнопках ==========//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//========== Стили для элементов "Круг" ==========//
+
+
+
+//========== /Стили для элементов "Круг" ==========//
