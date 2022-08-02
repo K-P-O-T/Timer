@@ -1,15 +1,23 @@
 @charset "UTF-8";
 
 @font-face {
-  font-family: "Lato";
+  font-family: "Lato-Bold";
   font-display: swap;
   src: url("../fonts/Lato-Bold.woff") format("woff"), url("../fonts/Lato-Bold.woff2") format("woff2");
-  font-weight: 700;
+  font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: "digital-7";
+  font-display: swap;
+  src: url("../fonts/digital-7.woff") format("woff"), url("../fonts/digital-7.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lato-Regular";
   font-display: swap;
   src: url("../fonts/Lato-Regular.woff") format("woff"), url("../fonts/Lato-Regular.woff2") format("woff2");
   font-weight: 400;
@@ -146,6 +154,7 @@ body {
   background-color: #45433E;
   color: #fff;
   min-height: 100%;
+  font-weight: 400;
 }
 
 .timer {
