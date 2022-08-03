@@ -8,6 +8,8 @@
     }
 }
 
+//mixin for connect fonts
+
 @import "fonts";
 
 /*Обнуление*/
@@ -29,14 +31,78 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}
 /*--------------------*/
 
 
-$color1: #ffffff;
-$color2: #959794;
-$color3: #45433E;
-$color4: #19171A;
-$color5: #E9322E;
-$color6: #59DB00;
+$color1: #202124;
+$color2: #929292;
+$color3: #acacac;
+$color4: #b9b9b9;
+$color5: #ffffff;
+$color6: #ffffff;
+$color7: #59DB00;
 
 
+//====== Миксинчики ======
+
+
+
+// @mixin border-animation-withGenerator {
+
+//     background-image: 
+//         radial-gradient(circle at 100% 100%, transparent 50px, #d2272b 50px, #d2272b 54px, transparent 54px),
+//         linear-gradient(to right, #d2272b, #4d4dff),
+//         radial-gradient(circle at 0% 100%, transparent 50px, #4d4dff 50px, #4d4dff 54px, transparent 54px),
+//         linear-gradient(to bottom, #4d4dff, #44d62c),
+//         radial-gradient(circle at 0% 0%, transparent 50px, #44d62c 50px, #44d62c 54px, transparent 54px),
+//         linear-gradient(to left, #44d62c, #e0e722),
+//         radial-gradient(circle at 100% 0%, transparent 50px, #e0e722 50px, #e0e722 54px, transparent 54px), 
+//         linear-gradient(to top, #e0e722, #d2272b);
+//     background-size: 20px 20px, calc(100% - 40px) 5px, 20px 20px, 5px calc(100% - 40px);
+//     background-position: top left, top center, top right, center right, bottom right, bottom center, bottom left, center left;
+//     background-repeat: no-repeat;
+
+
+
+// }
+
+
+
+
+
+@mixin border-animation {
+    --border-width: 10px;
+    
+    position: relative;
+    border-radius: var(--border-width);
+
+    &::after {
+        position: absolute;
+        content: "";
+        top: calc(-1 * var(--border-width));
+        left: calc(-1 * var(--border-width));
+        z-index: -1;
+        width: calc(100% + var(--border-width) * 2);
+        height: calc(100% + var(--border-width) * 2);
+        background: linear-gradient(60deg,
+                hsl(224, 85%, 66%),
+                hsl(269, 85%, 66%),
+                hsl(314, 85%, 66%),
+                hsl(359, 85%, 66%),
+                hsl(44, 85%, 66%),
+                hsl(89, 85%, 66%),
+                hsl(134, 85%, 66%),
+                hsl(179, 85%, 66%));
+        background-size: 300% 300%;
+        background-position: 0 50%;
+        border-radius: calc(2 * var(--border-width));
+        animation: moveGradient 4s alternate infinite;
+    }
+    @keyframes moveGradient {
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+}
+
+//====== /Миксинчики ======
 
 
 
@@ -65,11 +131,13 @@ $color6: #59DB00;
 
 
 body{
-    background-color: $color3;
+    background-color: $color1;
     color: #fff;
     //font-size: 2em;
     min-height: 100%;
-    //font-family: digital;
+    //font-family: digital-7;
+    font-weight: 400;
+    //font-size: 20px;
 }
 
 
@@ -89,6 +157,8 @@ body{
     width: 1000px;
     background-color: $color2;
     border-radius: 40px;
+    //border: 5px solid $color5;
+    @include border-animation;
 }
 
 .timer-timelist {
@@ -111,19 +181,22 @@ body{
         height: 615px;
         width: 100px;
 
-        background-color: #747474;
-        box-shadow: 0px 0px 48px 27px rgba(170, 170, 170, 0.24) inset;
+        background-color: $color3;
+        //box-shadow: 0px 0px 48px 27px rgba(170, 170, 170, 0.24) inset;
         padding: 10px;
         border-radius: 20px;
+        border: 2px solid $color6;
+
 
         &__item{
-            background-color: #d8d8d8;
+            background-color: $color4;
             width: 100%;
-            height: 50px;
+            // height: 50px;
+            height: 10%;
             border-radius: 10px;
             margin-bottom: 5px;
             padding: 5px;
-            font-size: 24px;
+            font-size: max(3.5vmin, 30px);
             
             &:last-child{   
                 margin-bottom: 0px;
@@ -133,11 +206,55 @@ body{
 }
 
 
+.lowercase{
+    font-size: max(1.75vmin, 16px);
+}
+
+
+
+
+@media (max-width: 700px) {
+
+    .timer-timelist {
+
+            flex-direction: column;
+    
+            &-time {
+                flex: 3 1 auto; //3 1
+            }
+    
+            &-list {
+                height: 415px;
+                width: 100%;
+
+
+                // &__item {
+                //         font-size: 30px;
+                // }
+            }
+        }
+
+}
+
+@media (max-width: 900px) {
+
+    .timer-timelist {
+        &-list {
+            height: 515px;
+        }
+    }
+
+}
+
+
+
+
 
 .clock {
     position: relative;
-    background-color: #b6b6b6;
+    background-color: $color3;
     border-radius: 50%;
+    border: 2px solid $color6;
 
     padding: 10px;
 
@@ -151,21 +268,68 @@ body{
     //display: none;
 }
 
+
 .clock-info {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     &__time {}
 }
 
+.clock-svg{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+
 #timer{
-    font-size: 100px;
+    //font-size: 15vmin;
+    //font-size: min(100px, 350%);
+
+    font-size: max(10vmin, 50px);
+    //font-size: 10vh;
 }
 
 #mtimer {
-    font-size: 50px;
+    //font-size: 50px;
+    // font-size: min(50px, 175%);
+
+    font-size: max(5vmin, 25px);
 }
+
+
+
+
+@media (min-width: 1300px) {
+    
+    #timer {
+            font-size: 100px;
+        }
+    
+    #mtimer {
+        font-size: 50px;
+    }
+
+}
+
+
+
+
+
+
 
 
 .timer-buttons {
@@ -176,7 +340,8 @@ body{
     gap: 50px;
     padding: 10px;
     border-radius: 15px;
-
+    border: 2px solid $color6;
+    
     &__reload {}
 
     &__startstop {}
@@ -185,17 +350,65 @@ body{
 }
 
 .button{
-    height: 100px;
+    height:100px;
     width: 100px;
     border-radius: 50%;
+    border: 2px solid $color6;
     background-color: #e0e0e0;
     font-size: 1.5rem;
-    border: solid 2px #313131;
+    //border: solid 2px #D22730;
+
+
+
+    --border-width: 50px;
+    
+    position: relative;
+    border-radius: var(--border-width);
+
+    &::after {
+        position: absolute;
+        content: "";
+        top: calc(-1 * var(--border-width));
+        left: calc(-1 * var(--border-width));
+        z-index: -1;
+        width: calc(100% + var(--border-width) * 2);
+        height: calc(100% + var(--border-width) * 2);
+        background: linear-gradient(60deg,
+                hsl(224, 85%, 66%),
+                hsl(269, 85%, 66%),
+                hsl(314, 85%, 66%),
+                hsl(359, 85%, 66%),
+                hsl(44, 85%, 66%),
+                hsl(89, 85%, 66%),
+                hsl(134, 85%, 66%),
+                hsl(179, 85%, 66%));
+        background-size: 300% 300%;
+        background-position: 0 50%;
+        border-radius: calc(2 * var(--border-width));
+        animation: moveGradient 4s alternate infinite;
+    }
+
+    @keyframes moveGradient {
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+
+
+    //@include border-animation-withGenerator;
 }
 
 
 
+@media (max-width: 700px) {
 
+    .button {
+            height: 150px;
+            width:  150px;
+            font-size: 2rem;
+        }
+
+}
 
 
 
@@ -232,24 +445,24 @@ body{
     from {
         stroke-dashoffset: 616;
         transform: rotateZ(-90deg);
-        stroke: $color5;
+        stroke: #c08af9;
     }
 
     50% {
         transform: rotateZ(-90deg);
-        stroke: $color6;
+        stroke: #c08af9;
         stroke-dashoffset: 0;
 
     }
 
     50.0001% {
         transform: rotateZ(-90deg) rotateX(180deg);
-        stroke: $color6;
+        stroke: #c08af9;
     }
 
     to {
         transform: rotateZ(-90deg) rotateX(180deg);
-        stroke: $color5;
+        stroke: #c08af9;
         stroke-dashoffset: 616;
     }
 }
@@ -265,8 +478,8 @@ body{
 
 .point {
     position: absolute;
-    width: 6px;
-    height: 6px;
+    width: 0px;  // Чтобы вернуть не адаптируемые точки поставь 6 px
+    height: 0px; // Чтобы вернуть не адаптируемые точки поставь 6 px
     top: 110px;
     left: 110px;
     background: white;
@@ -276,7 +489,13 @@ body{
 
 
 
-
+@media (max-width: 900px){
+    .point {
+            top:  95px;
+            left: 95px;
+            transform-origin: 175px 175px;
+        }
+}
 
 
 
@@ -350,3 +569,51 @@ body{
 
 
 //========== /Стили для элементов "Круг" ==========//
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .timer-body {
+//     --border-width: 3px;
+
+//     position: relative;
+//     border-radius: var(--border-width);
+
+//     &::after {
+//         position: absolute;
+//         content: "";
+//         top: calc(-1 * var(--border-width));
+//         left: calc(-1 * var(--border-width));
+//         z-index: -1;
+//         width: calc(100% + var(--border-width) * 2);
+//         height: calc(100% + var(--border-width) * 2);
+//         background: linear-gradient(60deg,
+//                 hsl(224, 85%, 66%),
+//                 hsl(269, 85%, 66%),
+//                 hsl(314, 85%, 66%),
+//                 hsl(359, 85%, 66%),
+//                 hsl(44, 85%, 66%),
+//                 hsl(89, 85%, 66%),
+//                 hsl(134, 85%, 66%),
+//                 hsl(179, 85%, 66%));
+//         background-size: 300% 300%;
+//         background-position: 0 50%;
+//         border-radius: calc(2 * var(--border-width));
+//         animation: moveGradient 4s alternate infinite;
+//     }
+// }
+
+// @keyframes moveGradient {
+//     50% {
+//         background-position: 100% 50%;
+//     }
+// }
