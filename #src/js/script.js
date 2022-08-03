@@ -61,8 +61,6 @@ let t;
 
 reload_btn.onclick = function () {
 
-    loopcontainer.innerHTML = '';
-
     ReloadTime();
 
 };
@@ -251,6 +249,7 @@ function ReloadTime() {
     if (init == true) {
         return false;
     } else {
+        loopcontainer.innerHTML = '';
         anim.classList.add("StopAnim");
         ClearClock();
     }
@@ -274,7 +273,9 @@ function addLoopItem() {
     loopdiv.className = "timer-timelist-list__item";
     
     
-    loopdiv.innerHTML = timer.innerHTML + mtimer.innerHTML;
+    // loopdiv.innerHTML = timer.innerHTML + mtimer.innerHTML;
+
+    loopdiv.innerHTML = "<span>" + timer.innerHTML + "</span><span class='lowercase'>" + mtimer.innerHTML + "</span>";
     
     
     loopcontainer.prepend(loopdiv);
@@ -405,7 +406,7 @@ let template = document.createElement('template');
 setPunto();
 
 function setPunto() {
-    for (let i = 10; i < 370; i += 6) {//  Сместил цикл на 10 для правильного расставления точек
+    for (let i = 0; i < 360; i += 6) {//  Сместил цикл на 10 для правильного расставления точек
         generarPunto(i, "point");
         let bola = template.content.cloneNode(true);
         c.appendChild(bola);
@@ -490,3 +491,19 @@ function addElement(e) {
 }
 
 //---/Анииация волны на кнопках---
+
+
+
+
+
+
+
+//======Адаптив часов через JS======
+
+
+const clock = document.querySelector('.clock ');
+
+timer.style.cssText = 'font-size: ' + clock.offsetWidth; +'px;';
+
+
+//======/Адаптив часов через JS======
