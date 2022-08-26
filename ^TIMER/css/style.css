@@ -275,6 +275,7 @@ body {
   margin-bottom: 5px;
   padding: 5px;
   font-size: max(3.5vmin, 30px);
+  border: 2px solid #ffffff;
 }
 
 .timer-timelist-list__item:last-child {

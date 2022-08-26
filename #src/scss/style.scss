@@ -219,6 +219,8 @@ body{
             margin-bottom: 5px;
             padding: 5px;
             font-size: max(3.5vmin, 30px);
+
+            border: 2px solid $color6;
             
             &:last-child{   
                 margin-bottom: 0px;
